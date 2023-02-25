@@ -1,0 +1,7 @@
+'https://www.booking.com/searchresults.pt-br.html?ss=Natal&ssne=Natal&ssne_untouched=Natal&label=gen173bo-1DCAEoggI46AdIM1gDaCCIAQGYATG4ARfIAQzYAQPoAQH4AQOIAgGYAgKoAgO4Aunx6Z8GwAIB0gIkNGNhYzQzY2YtMDc5Ny00ODg0LTg2ODMtMWY3OTIzNDM2YWZk2AIE4AIB&sid=f04ed5a00e80a505578f91129f0d1265&aid=304142&lang=pt-br&sb=1&src_elem=sb&src=searchresults&dest_id=-656888&dest_type=city&checkin=',ano_in,'-',mes_in,'-',dia_in,
+'&checkout=',ano_out,'-',mes_out,'-',dia_out,'&group_adults=2&no_rooms=1&group_children=0&sb_travel_purpose=leisure'
+
+
+'https://www.booking.com/searchresults.pt-br.html?label=gen173bo-1DCAEoggI46AdIM1gDaCCIAQGYATG4ARfIAQzYAQPoAQH4AQOIAgGYAgKoAgO4Aunx6Z8GwAIB0gIkNGNhYzQzY2YtMDc5Ny00ODg0LTg2ODMtMWY3OTIzNDM2YWZk2AIE4AIB&sid=f04ed5a00e80a505578f91129f0d1265&aid=304142&ss=Natal&ssne=Natal&ssne_untouched=Natal&lang=pt-br&sb=1&src_elem=sb&src=searchresults&dest_id=-656888&dest_type=city&checkin=',
+ano_in,'-',mes_in,'-',dia_in,'&checkout=',
+ano_out,'-',mes_out,'-',dia_out,'&group_adults=2&no_rooms=1&group_children=0&sb_travel_purpose=leisure&offset=',contador_pagina'

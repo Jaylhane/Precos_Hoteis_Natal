@@ -1,0 +1,17 @@
+nome_hotel .a23c043802
+
+preco_hotel .fbd1d3018c
+
+localizacao .b4273d69aa:nth-child(1)
+
+avaliacao .e46e88563a
+
+qtd_avaliacoes .db63693c62
+
+nota_avaliacao .d10a6220b4
+
+impostos_taxas .c90c0a70d3:nth-child(4)
+
+distancia_praia .a196e30dac
+
+distancia_centro .f4bd0794db:nth-child(2)

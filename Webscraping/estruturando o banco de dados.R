@@ -1,8 +1,8 @@
-setwd("~/Projeto Assessoria e Consultoria/Pesquisa de Preços Natal RN/Banco de Dados")
+setwd("~/Projeto Assessoria e Consultoria/Pesquisa de Pre?os Natal RN/Banco de Dados")
 
 #criando banco de dados 
-#Dados de Natal, pesquisa de uma diaria para dois adultos - quarto de categoria de menor preço disponivel. Site: Booking.com
-#Tipos de hospedagem: Hoteis, Pousadas, Albergues e Resorts - a categoria de menor preço disponível
+#Dados de Natal, pesquisa de uma diaria para dois adultos - quarto de categoria de menor pre?o disponivel. Site: Booking.com
+#Tipos de hospedagem: Hoteis, Pousadas, Albergues e Resorts - a categoria de menor pre?o dispon?vel
 #Objetivo: analisar (evolucao) variacao dos precos de Natal e fazer uma previsao das futuras diarias. 
 
 #bibliotecas
@@ -11,7 +11,7 @@ library(lubridate) #operacao com datas
 library(rvest) #scraping 
 library(devtools)
 library(tidyverse) # %>%
-library(rlang) #is_empty precisa dessa livraria, importante para verificar se ainda há propriedades disponiveis
+library(rlang) #is_empty precisa dessa livraria, importante para verificar se ainda h? propriedades disponiveis
 library(curl) #identificar-se ao servidor do site para evitar erro http 502
 #library(htmltools) #tentando salvar a pagina em html pra testar o que acontece na pagina
 #save_html(page, file ="page.html", background = "white", libdir = "lib")
@@ -30,6 +30,7 @@ dias <- 0
 banco_precos_dia <- c()
 banco_precos_final <- c()
 i <- 0
+
 for (i in 0:731) {
  
 # data do checkin 
@@ -44,7 +45,7 @@ for (i in 0:731) {
   mesout <- as.numeric(month(diacheckout))
   anoout <- as.numeric(year(diacheckout))
   
-# a.scraping o numero de paginas - identificando na primeira busca quantas propriedades existem para podermos gerar o número de paginas
+# a.scraping o numero de paginas - identificando na primeira busca quantas propriedades existem para podermos gerar o n?mero de paginas
   
   site <- curl(paste0('https://www.booking.com/searchresults.pt-br.html?aid=304142&label=gen173nr-1FCAEoggI46AdIM1gEaCCIAQGYAS24ARfIAQzYAQHoAQH4AQuIAgGoAgO4AvCp5vIFwAIB&sid=b0ea1003a80543236a20e94559c4ed28&tmpl=searchresults&checkin_month=',mesin,'&checkin_monthday=',diain,'&checkin_year=',anoin,'&checkout_month=',mesout,'&checkout_monthday=',diaout,'&checkout_year=',anoout,'&city=-656888&class_interval=1&dest_id=-656888&dest_type=city&from_sf=1&group_adults=2&group_children=0&label_click=undef&no_rooms=1&raw_dest_type=city&room1=A%2CA&sb_price_type=total&shw_aparth=1&slp_r_match=0&src=searchresults&srpvid=cb3ea243491000f8&ss=Natal&ssb=empty&ssne=Natal&ssne_untouched=Natal&top_ufis=1&nflt=ht_id%3D203%3Bht_id%3D216%3Bht_id%3D206%3Bht_id%3D204%3B&percent_htype_hotel=1&rsf='),"rb")
   
@@ -59,7 +60,7 @@ for (i in 0:731) {
   
   #caso nao tenha mais propriedade encerrar as conexoes, salvar o codigo e finalizar a execucao.
   if(is_empty(propriedades)==TRUE){
-    #fechar as conexões 
+    #fechar as conex?es 
     closeAllConnections()
     #remover duplicidades - alguns hoteis aparecem em mais de uma pagina
     banco_precos_final <- unique(banco_precos_final)
@@ -70,13 +71,13 @@ for (i in 0:731) {
     #incluir coluna do dia da semana
     banco_precos_final$diasemana <- wday(banco_precos_final$diacheckin, label = T)
     #salvar o banco de dados
-    setwd("~/Projeto Assessoria e Consultoria/Pesquisa de Preços Natal RN/Banco de Dados/Dados limpos")
+    setwd("~/Projeto Assessoria e Consultoria/Pesquisa de Pre?os Natal RN/Banco de Dados/Dados limpos")
     write.csv2(banco_precos_final,file = paste(inicio,".csv"))
-    #calcular o tempo de execução
+    #calcular o tempo de execu??o
     tempo.final <- Sys.time()
     print(tempo.final-tempo.inicial)
-    #finalizar execução
-    stop("Não há propriedades com tarifas disponíveis")
+    #finalizar execu??o
+    stop("N?o h? propriedades com tarifas dispon?veis")
   } else{
   #determinar o numero de paginas de acordo com o numero de propriedades
   paginas <- round(propriedades/25, digits = 0)
@@ -139,7 +140,7 @@ for (i in 0:731) {
     
     #.prc-d-sr-wrapper, .prco-ltr-right-align-helper , .bui-alert__text
 
-    #construindo o banco de dados de cada página
+    #construindo o banco de dados de cada p?gina
     banco_precos_i <- data.frame(nomes_i, quarto_i, precos_i, stringsAsFactors = F)
 
     #alimentando o banco de dados de um dia
@@ -172,7 +173,7 @@ banco_precos_final <- rbind(banco_precos_final, banco_precos_dia)
     # ou descanse por 1 ou 2 segundos e prossiga
     Sys.sleep(sample(2,1))
   }
- #acompanhar quantos dias já baixou
+ #acompanhar quantos dias j? baixou
   dias.baixados <- as.numeric(diacheckin-inicio)+1
  print(dias.baixados)
 }
@@ -216,24 +217,24 @@ View(quarto_i)
 #14/03 -  Error in open.connection(x, "rb") : 
 # Timeout was reached: Connection timed out after 10004 milliseconds - baixou ate 12/03/2021
 
-#18/03 - O R travou durante a execução e não foi possível salvar ou resgatar os dados
+#18/03 - O R travou durante a execu??o e n?o foi poss?vel salvar ou resgatar os dados
 
-#21/03 - finalmente incrementei o código para corrigir o preço, deixando apenas o valor numerico. foi necessário inserir um comando de suppressWarnings() no parse number pq nos dias em que não há preço ele aparece um warning informando que havia apenas caracteres e será gerado um NA. incluido também o dia da semana. 
+#21/03 - finalmente incrementei o c?digo para corrigir o pre?o, deixando apenas o valor numerico. foi necess?rio inserir um comando de suppressWarnings() no parse number pq nos dias em que n?o h? pre?o ele aparece um warning informando que havia apenas caracteres e ser? gerado um NA. incluido tamb?m o dia da semana. 
 
-#21/03 - passei a baixar tb o nome do quarto pois as vezes a mudança de tarifa é em função do esgotamento de uma categoria mais barata. 
+#21/03 - passei a baixar tb o nome do quarto pois as vezes a mudan?a de tarifa ? em fun??o do esgotamento de uma categoria mais barata. 
 
-# 23/03 - dia 10/09 estava dando algum erro com relação ao número de quartos
+# 23/03 - dia 10/09 estava dando algum erro com rela??o ao n?mero de quartos
 # Error in data.frame(nomes_i, quarto_i, precos_i, stringsAsFactors = F) : 
 # arguments imply differing number of rows: 16, 15
 
-#24/03 - na pagina 5 está dando erro ao baixar o nome do quarto novamente. 
+#24/03 - na pagina 5 est? dando erro ao baixar o nome do quarto novamente. 
 #Error in data.frame(nomes_i, quarto_i, precos_i, stringsAsFactors = F) : 
 #arguments imply differing number of rows: 18, 17
 
-#25/03  dados baixados até dia 30/09/2020 - Error in open.connection(x, "rb") : 
+#25/03  dados baixados at? dia 30/09/2020 - Error in open.connection(x, "rb") : 
 # Timeout was reached: Resolving timed out after 10000 milliseconds
 
-#26/03 (Escrito por Fabrício) Dados foram baixados até dia 11/06/2020 e o erro dado foi:
+#26/03 (Escrito por Fabr?cio) Dados foram baixados at? dia 11/06/2020 e o erro dado foi:
 #Error in open.connection(x, "rb") : HTTP error 502.
 
 # 28/03 - VERIFICAR AS DATAS ANTES DE UNIFICAR, ACREDITO QUE A PARTE DOI SERA A PARTE 1. PARTE DOI BAIXADA ATE 18/08/2020, PARTE 1 BAIXADA ATE 01/01/2021, NO ENTANTO ACHO QUE COMECA EM 03/07. 
@@ -242,12 +243,12 @@ View(quarto_i)
 
 #02/04 - Error in open.connection(x, "rb") : HTTP error 502. . BAIXOU APENAS ATE 30/07/2020
 
-#03/04 - tentativa de implementar o código para voltar a baixar o nome do quarto e evitar o error http 502
-    #library(libcurl) #nao disponivel para versão 3.6.1 - instalando a versão mais     recente
-    #instalando ultima versão de libcurl - não foi necessário, library curl funciona
+#03/04 - tentativa de implementar o c?digo para voltar a baixar o nome do quarto e evitar o error http 502
+    #library(libcurl) #nao disponivel para vers?o 3.6.1 - instalando a vers?o mais     recente
+    #instalando ultima vers?o de libcurl - n?o foi necess?rio, library curl funciona
     #require(devtools)
     #libcurlVersion()
     #libcurl195 <- "https://cran.r-project.org/src/contrib/Archive/RCurl/RCurl_1.95-4   .12#.tar.gz"
     #install.packages(libcurl195,repos = NULL, type = "source")
 
-# BANCO DE PREÇOS FINAL DO DIA 28/04 VEIO COM NA NA COLUNA PREÇO
+# BANCO DE PRE?OS FINAL DO DIA 28/04 VEIO COM NA NA COLUNA PRE?O
